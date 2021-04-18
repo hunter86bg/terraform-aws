@@ -14,7 +14,7 @@ git clone https://github.com/hunter86bg/terraform-aws.git
 cd terraform-aws
 terraform apply
 ```
-Use the web address provided as "alb_dns_name" to access the Wordpress Site.
+Wait several minutes before using the web address provided by terraform.
 
 ## Cleanup
 ```
