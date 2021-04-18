@@ -20,21 +20,15 @@ sed -i "s/database_name_here/${dbname}/" /var/www/wp-config.php
 
 
 ### Override the default Hello World post
-curl https://raw.githubusercontent.com/hunter86bg/aws/main/wp-content_install.php > /var/www/wp-content/install.php
+curl https://raw.githubusercontent.com/hunter86bg/terraform-aws/main/wp-content_install.php > /var/www/wp-content/install.php
 
 ### Restore the DB with the first web instance
 ### Next instance should not touch our DB
 ### Ugly , but should work
 sleep $(/usr/bin/shuf -i10-30 -n1)
 
-#
-#output=$(mysql -vv -u ${dbuser} -p${dbpass} -h ${dbaddr} -e "select * from example_database.deployed where title='wordpress' and completed='1';" 2>&1  | head -1 )
-#if [ "$output" == "ERROR 1146 (42S02) at line 1: Table 'example_database.deployed' doesn't exist" ] || [ "$output" == *"Empty set"* ] 
-#then
-#
-#curl  https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar  > /usr/local/bin/wp
 
-curl https://raw.githubusercontent.com/hunter86bg/aws/main/wp > /usr/local/bin/wp
+curl https://raw.githubusercontent.com/hunter86bg/terraform-aws/main/wp > /usr/local/bin/wp
 chmod +x /usr/local/bin/wp
 wp core install --path="/var/www" --url="http://${alb_dns}/" --title="Linux namespaces" --admin_user=${dbuser} --admin_password=${dbpass} --admin_email=hunter86_bg@av.bg --allow-root || true
 
@@ -44,15 +38,10 @@ sleep $(/usr/bin/shuf -i10-30 -n1)
 
 systemctl restart apache2
 
-#	mysql -vv -u ${dbuser} -p${dbpass} -h ${dbaddr} -e "create table example_database.deployed (title varchar(10) NOT NULL, completed BOOLEAN default '0');"
-#	mysql -vv -u ${dbuser} -p${dbpass} -h ${dbaddr} -e "INSERT INTO example_database.deployed(title,completed) VALUES('wordpress', '1');
-#        #mysql -vv -u ${dbuser} -p${dbpass} -h ${dbaddr} -e "UPDATE example_database.deployed  SET completed='1' where title='wordpress';"
-#fi
-
 
 ##########################
 # DB optimize job
-curl https://raw.githubusercontent.com/hunter86bg/aws/main/optimize.sh > /usr/local/bin/optimize.sh
+curl https://raw.githubusercontent.com/hunter86bg/terraform-aws/main/optimize.sh > /usr/local/bin/optimize.sh
 chmod 755 /usr/local/bin/optimize.sh
 sed -i "s/DBADDR/${dbaddr}/g" /usr/local/bin/optimize.sh
 sed -i "s/USER/${dbuser}/g" /usr/local/bin/optimize.sh
