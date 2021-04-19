@@ -3,10 +3,10 @@ Deploy wordpress in AWS
 
 
 ## Prerequisites
-- Terraform v0.14.9
-- aws-cli v2.1.34
-- Git
-- Access to AWS Secrets Manager
+- Terraform v0.14.9 (installed)
+- aws-cli v2.1.34 (installed and configured with your credentials)
+- Git (installed)
+- Access to AWS Secrets Manager (installed and configured with your credentials)
 
 ## Provisioning
 
