@@ -13,6 +13,7 @@ Deploy wordpress in AWS
 ```
 git clone https://github.com/hunter86bg/terraform-aws.git
 cd terraform-aws
+terraform init
 terraform apply
 ```
 Please wait for at least a couple of minutes before using the web address provided by terraform.
